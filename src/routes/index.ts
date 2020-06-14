@@ -3,7 +3,7 @@ import health from './health'
 
 const router = express.Router()
 
-router.use(health)
+router.use('/health', health)
 
 router.use('*', (_, res) => {
   res.status(404).send('Not found')

@@ -3,6 +3,6 @@ import controller from '../controllers/health'
 
 const router = express.Router()
 
-router.use('/health', controller.health)
+router.get('/', controller.health)
 
 export default router
