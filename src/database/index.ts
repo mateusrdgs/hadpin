@@ -20,4 +20,60 @@ const pool = mysql.createPool({
   database: DB_NAME,
 })
 
-export default pool
+const query = <T>(query: string): Promise<mysql.MysqlError | T[]> => {
+  return new Promise((resolve, reject) => {
+    return pool.query(query, (err, rows) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(rows)
+      }
+    })
+  })
+}
+
+const transaction = <T>(
+  options: mysql.QueryOptions
+): Promise<mysql.MysqlError | T[]> => {
+  return new Promise((resolve, reject) => {
+    return pool.getConnection(
+      (err: mysql.MysqlError, connection: mysql.PoolConnection) => {
+        if (err) {
+          reject(err)
+        } else {
+          connection.beginTransaction(options, (err: mysql.MysqlError) => {
+            if (err) {
+              reject(err)
+            } else {
+              connection.query(options, (err: mysql.MysqlError, rows: []) => {
+                if (err) {
+                  connection.rollback(options, (err: mysql.MysqlError) => {
+                    if (err) {
+                      reject(err)
+                    } else {
+                      reject(err)
+                    }
+                  })
+                } else {
+                  connection.commit(options, (err: mysql.MysqlError) => {
+                    if (err) {
+                      reject(err)
+                    } else {
+                      connection.release()
+                      resolve(rows)
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      }
+    )
+  })
+}
+
+export default {
+  query,
+  transaction,
+}
