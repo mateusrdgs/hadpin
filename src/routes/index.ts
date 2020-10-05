@@ -1,12 +1,24 @@
 import express from 'express'
-import health from './health'
 
-const router = express.Router()
+import HealthRouter from './health'
+import Controllers from '../controllers'
 
-router.use('/health', health)
+class Router {
+  routes: express.Router
 
-router.use('*', (_, res) => {
-  res.status(404).send('Not found')
-})
+  constructor(controllers: Controllers) {
+    this.routes = express.Router()
 
-export default router
+    const health = new HealthRouter(this.routes, controllers.health)
+
+    this.routes.use('/health', health.router)
+
+    this.routes.use('*', this.handleNotFound)
+  }
+
+  private handleNotFound(_: express.Request, res: express.Response): void {
+    res.status(404).send('Not found')
+  }
+}
+
+export default Router

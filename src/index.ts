@@ -1,18 +1,16 @@
 import cluster from 'cluster'
 import os from 'os'
 import dotenv from 'dotenv'
-import express, { Request, Response } from 'express'
-import http from 'http'
-import helmet from 'helmet'
-import morgan from 'morgan'
 
-import routes from './routes'
+import Controllers from './controllers'
+import Router from './routes'
+import Application from './application'
+import Server from './server'
 
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
 const IS_PROD = process.env.NODE_ENV === 'prod'
-const LOGGER_FORMAT = IS_PROD ? 'combined' : 'dev'
 
 if (IS_PROD && cluster.isMaster) {
   const cpuCount = os.cpus().length
@@ -20,18 +18,11 @@ if (IS_PROD && cluster.isMaster) {
     cluster.fork()
   }
 } else {
-  const app = express()
-  const logger = () => morgan(LOGGER_FORMAT)
+  const controllers = new Controllers()
+  const { routes } = new Router(controllers)
+  const { application } = new Application(routes)
 
-  app.use(helmet())
-  app.use(logger())
-  app.use('/api', routes)
-
-  app.use((_: Request, res: Response) => {
-    res.status(404).send('Not found')
-  })
-
-  const server = http.createServer(app)
+  const server = new Server(application)
 
   server.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`)
