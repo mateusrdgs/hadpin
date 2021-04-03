@@ -1,11 +1,14 @@
 import http from 'http'
 import https from 'https'
 
-class Server {
+import IServer from './contracts/server'
+import IApplication from './contracts/application'
+
+class Server implements IServer {
   private server: http.Server | https.Server
 
-  constructor(application: Express.Application) {
-    this.server = http.createServer(application)
+  constructor(application: IApplication) {
+    this.server = http.createServer(application.application)
   }
 
   listen(

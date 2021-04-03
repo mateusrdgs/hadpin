@@ -2,6 +2,9 @@ import cluster from 'cluster'
 import os from 'os'
 import dotenv from 'dotenv'
 
+import HealthService from './services/health'
+import Service from './services'
+
 import Controllers from './controllers'
 import Router from './routes'
 import Application from './application'
@@ -18,10 +21,12 @@ if (IS_PROD && cluster.isMaster) {
     cluster.fork()
   }
 } else {
-  const controllers = new Controllers()
-  const { routes } = new Router(controllers)
-  const { application } = new Application(routes)
+  const healthService = new HealthService()
 
+  const services = new Service(healthService)
+  const controllers = new Controllers(services)
+  const router = new Router(controllers)
+  const application = new Application(router)
   const server = new Server(application)
 
   server.listen(PORT, () => {

@@ -1,9 +1,11 @@
 import express from 'express'
 
+import IRouter from '../contracts/router'
+
 import HealthRouter from './health'
 import Controllers from '../controllers'
 
-class Router {
+class Router implements IRouter {
   routes: express.Router
 
   constructor(controllers: Controllers) {
