@@ -2,13 +2,13 @@ import cluster from 'cluster'
 import os from 'os'
 import dotenv from 'dotenv'
 
-import HealthService from './services/health'
-import Service from './services'
+import HealthService from 'services/health'
+import Services from 'services'
 
-import Controllers from './controllers'
-import Router from './routes'
-import Application from './application'
-import Server from './server'
+import Controllers from 'controllers'
+import Router from 'routes'
+import Application from 'application'
+import Server from 'server'
 
 dotenv.config()
 
@@ -23,7 +23,7 @@ if (IS_PROD && cluster.isMaster) {
 } else {
   const healthService = new HealthService()
 
-  const services = new Service(healthService)
+  const services = new Services(healthService)
   const controllers = new Controllers(services)
   const router = new Router(controllers)
   const application = new Application(router)

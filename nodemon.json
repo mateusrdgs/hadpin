@@ -5,7 +5,8 @@
     "ts": "node --require ts-node/register"
   },
   "env": {
-    "NODE_ENV": "dev"
+    "NODE_ENV": "dev",
+    "NODE_PATH": "src/"
   },
   "watch": ["src/"],
   "ext": "ts, json"

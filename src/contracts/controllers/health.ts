@@ -1,6 +1,6 @@
 import express from 'express'
 
-import IService from '../services/health'
+import IService from 'contracts/services/health'
 
 interface IController {
   service: IService

@@ -1,7 +1,7 @@
-import IControllers from '../contracts/controllers'
-import IServices from '../contracts/services'
+import IControllers from 'contracts/controllers'
+import IServices from 'contracts/services'
 
-import Health from './health'
+import Health from 'controllers/health'
 
 class Controllers implements IControllers {
   health: Health

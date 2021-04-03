@@ -1,4 +1,4 @@
-import IHealth from './health'
+import IHealth from 'contracts/services/health'
 
 interface IServices {
   health: IHealth

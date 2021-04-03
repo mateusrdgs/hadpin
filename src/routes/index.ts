@@ -1,9 +1,9 @@
 import express from 'express'
 
-import IRouter from '../contracts/router'
+import IRouter from 'contracts/router'
 
-import HealthRouter from './health'
-import Controllers from '../controllers'
+import HealthRouter from 'routes/health'
+import Controllers from 'controllers'
 
 class Router implements IRouter {
   routes: express.Router

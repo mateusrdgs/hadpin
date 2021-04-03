@@ -1,5 +1,5 @@
 import express from 'express'
-import HealthController from '../../controllers/health'
+import HealthController from 'controllers/health'
 
 class HealthRouter {
   private controller: HealthController

@@ -1,6 +1,7 @@
 import express from 'express'
-import IService from '../../contracts/services/health'
-import IControler from '../../contracts/controllers/health'
+
+import IService from 'contracts/services/health'
+import IControler from 'contracts/controllers/health'
 
 class Controller implements IControler {
   service: IService
