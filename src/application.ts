@@ -1,5 +1,6 @@
 import express from 'express'
 import helmet from 'helmet'
+import compression from 'compression'
 import morgan from 'morgan'
 
 import IRouter from 'contracts/router'
@@ -18,6 +19,7 @@ class Application implements IApplication {
 
     this.application.use(helmet())
     this.application.use(logger())
+    this.application.use(compression())
     this.application.use(express.json())
 
     this.application.use('/api', router.routes)

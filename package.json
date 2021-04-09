@@ -14,14 +14,16 @@
     "serve": "NODE_PATH=build/ node build/index.js"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "helmet": "^3.23.0",
+    "helmet": "^4.4.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.0",
     "@types/express": "^4.17.6",
     "@types/helmet": "^0.0.47",
     "@types/morgan": "^1.9.1",
