@@ -1,4 +1,4 @@
-import IHealth from 'contracts/controllers/health'
+import IHealth from './health'
 
 export default interface IControllers {
   health: IHealth

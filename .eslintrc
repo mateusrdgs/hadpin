@@ -12,5 +12,6 @@
   ],
   "rules": {
     "prettier/prettier": "warn"
-  }
+  },
+  "ignorePatterns": "webpack"
 }

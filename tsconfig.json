@@ -13,8 +13,15 @@
     "alwaysStrict": true,
     "baseUrl": "./src",
     "paths": {
-      "*": ["./*"]
+      "contracts/*": ["contracts/*"],
+      "controllers/*": ["controllers/*"],
+      "database/*": ["database/*"],
+      "routes/*": ["routes/*"],
+      "services/*": ["services/*"],
+      "application/*": ["application/*"],
+      "server/*": ["server/*"]
     },
+    "sourceMap": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   }
