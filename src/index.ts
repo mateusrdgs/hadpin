@@ -1,6 +1,11 @@
+import dotenv from 'dotenv'
+
+if (process.env.NODE_ENV === 'local') {
+  dotenv.config()
+}
+
 import cluster from 'cluster'
 import os from 'os'
-import dotenv from 'dotenv'
 
 import HealthService from './services/health'
 import Services from './services'
@@ -10,13 +15,12 @@ import Router from './routes'
 import Application from './application'
 import Server from 'server'
 
-dotenv.config()
-
 const PORT = process.env.PORT || 3000
 const IS_PROD = process.env.NODE_ENV === 'prod'
 
 if (IS_PROD && cluster.isMaster) {
   const cpuCount = os.cpus().length
+
   for (let i = 0; i <= cpuCount; i++) {
     cluster.fork()
   }

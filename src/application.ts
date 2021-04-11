@@ -6,8 +6,8 @@ import morgan from 'morgan'
 import IRouter from 'contracts/router'
 import IApplication from 'contracts/application'
 
-const IS_PROD = process.env.NODE_ENV === 'prod'
-const LOGGER_FORMAT = IS_PROD ? 'combined' : 'dev'
+const IS_LOCAL = process.env.NODE_ENV === 'local'
+const LOGGER_FORMAT = IS_LOCAL ? 'dev' : 'combined'
 
 const logger = () => morgan(LOGGER_FORMAT)
 
