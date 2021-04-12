@@ -1,6 +1,9 @@
+const IS_DEV = process.env.NODE_ENV === 'development'
+const PORT = process.env.PORT || 3000
+
 import dotenv from 'dotenv'
 
-if (process.env.NODE_ENV === 'local') {
+if (IS_DEV) {
   dotenv.config()
 }
 
@@ -15,10 +18,7 @@ import Router from './routes'
 import Application from './application'
 import Server from 'server'
 
-const PORT = process.env.PORT || 3000
-const IS_PROD = process.env.NODE_ENV === 'prod'
-
-if (IS_PROD && cluster.isMaster) {
+if (!IS_DEV && cluster.isMaster) {
   const cpuCount = os.cpus().length
 
   for (let i = 0; i <= cpuCount; i++) {

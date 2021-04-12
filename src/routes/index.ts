@@ -11,15 +11,9 @@ class Router implements IRouter {
   constructor(controllers: Controllers) {
     this.routes = express.Router()
 
-    const health = new HealthRouter(this.routes, controllers.health)
+    const health = new HealthRouter(express.Router(), controllers.health)
 
     this.routes.use('/health', health.router)
-
-    this.routes.use('*', this.handleNotFound)
-  }
-
-  private handleNotFound(_: express.Request, res: express.Response): void {
-    res.status(404).send('Not found')
   }
 }
 

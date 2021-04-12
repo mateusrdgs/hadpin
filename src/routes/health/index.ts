@@ -9,7 +9,7 @@ class HealthRouter {
     this.controller = controller
     this.router = router
 
-    this.router.use('/', this.controller.handleUptime)
+    this.router.get('/', this.controller.handleUptime)
   }
 }
 
